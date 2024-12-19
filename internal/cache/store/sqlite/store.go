@@ -144,6 +144,10 @@ func (s *SQLiteStore) GetChildren(path string) ([]string, error) {
 	return paths, nil
 }
 
+func (s *SQLiteStore) GetGraph() ([]database.FileRecord, []database.LinkRecord, error) {
+	return s.db.GetGraph()
+}
+
 // Cleanup operations
 func (s *SQLiteStore) Close() error {
 	var errors []error

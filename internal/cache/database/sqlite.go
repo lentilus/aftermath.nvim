@@ -218,6 +218,28 @@ func (db *SQLiteDB) DeleteLinks(sourcePath string) error {
 	return nil
 }
 
+func (db *SQLiteDB) GetGraph() ([]FileRecord, []LinkRecord, error) {
+	// Fetch all file records
+	fileRecords, err := db.GetAllFiles()
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to get all files: %w", err)
+	}
+
+	// Fetch all link records
+	rows, err := db.db.Query("SELECT source_path, target_path FROM links")
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to query all links: %w", err)
+	}
+	defer rows.Close()
+
+	linkRecords, err := scanLinkRecords(rows)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to scan link records: %w", err)
+	}
+
+	return fileRecords, linkRecords, nil
+}
+
 func (db *SQLiteDB) Clear() error {
 	_, err := db.db.Exec(`
         DELETE FROM links;

@@ -26,6 +26,9 @@ type Database interface {
 	UpsertLinks(sourcePath string, targetPaths []string) error
 	DeleteLinks(sourcePath string) error
 
+	// Graph visualization
+	GetGraph() ([]FileRecord, []LinkRecord, error)
+
 	// Maintenance
 	Clear() error
 	Close() error
