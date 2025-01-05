@@ -267,3 +267,13 @@ func (s *Server) textDocumentReferences(
 
 	return locations, nil
 }
+
+func (s *Server) workspaceExecuteCommand(
+	context *glsp.Context,
+	params *protocol.ExecuteCommandParams,
+) (any, error) {
+	if params.Command == "graph" {
+		return nil, s.showGraph()
+	}
+	return nil, nil
+}

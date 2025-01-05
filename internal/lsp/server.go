@@ -20,15 +20,16 @@ func NewServer() (*server.Server, error) {
 	}
 
 	ls.handler = &protocol.Handler{
-		Initialize:             ls.initialize,
-		Initialized:            ls.initialized,
-		TextDocumentDidOpen:    ls.textDocumentDidOpen,
-		TextDocumentDidChange:  ls.textDocumentDidChange,
-		TextDocumentDidSave:    ls.textDocumentDidSave,
-		TextDocumentDidClose:   ls.textDocumentDidClose,
-		TextDocumentDefinition: ls.textDocumentDefinition,
-		TextDocumentReferences: ls.textDocumentReferences,
-		Shutdown:               ls.shutdown,
+		Initialize:              ls.initialize,
+		Initialized:             ls.initialized,
+		TextDocumentDidOpen:     ls.textDocumentDidOpen,
+		TextDocumentDidChange:   ls.textDocumentDidChange,
+		TextDocumentDidSave:     ls.textDocumentDidSave,
+		TextDocumentDidClose:    ls.textDocumentDidClose,
+		TextDocumentDefinition:  ls.textDocumentDefinition,
+		TextDocumentReferences:  ls.textDocumentReferences,
+		WorkspaceExecuteCommand: ls.workspaceExecuteCommand,
+		Shutdown:                ls.shutdown,
 	}
 
 	return server.NewServer(ls.handler, "zeta", false), nil

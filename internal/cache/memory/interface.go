@@ -1,5 +1,7 @@
 package memory
 
+import "zeta/internal/cache/database"
+
 // Position represents a position in a document
 type Position struct {
 	Line      uint32
@@ -47,6 +49,8 @@ type DocumentManager interface {
 	// Queries
 	GetAllPaths() ([]string, error)
 	GetParents(path string) ([]string, error)
+	// TODO: Change to manager specific signature
+	GetGraph() ([]database.FileRecord, []database.LinkRecord, error)
 
 	// Bulk operations
 	CloseAll() error

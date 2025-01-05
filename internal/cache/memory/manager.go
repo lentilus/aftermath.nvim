@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
+	"zeta/internal/cache/database"
 	"zeta/internal/cache/store"
 	"zeta/internal/parser"
 	"zeta/internal/scheduler"
@@ -206,4 +207,8 @@ func (m *SQLiteDocumentManager) GetParents(path string) ([]string, error) {
 	}
 
 	return result, nil
+}
+
+func (m *SQLiteDocumentManager) GetGraph() ([]database.FileRecord, []database.LinkRecord, error) {
+	return m.store.GetGraph()
 }
